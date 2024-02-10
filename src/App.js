@@ -1,14 +1,11 @@
-import React from 'react';
-import Header from './Components/Header/Header';
-import CarouselEffect from "./Components/Carousel/Carousel"
-// import './App.css';
 
+import './App.css';
+
+import Routing from "./Router.jsx"
 function App() {
   return (
-    <div> 
-      <Header/>
-      <CarouselEffect/>
-      
+    <div className="App">
+     <Routing />
     </div>
   );
 }

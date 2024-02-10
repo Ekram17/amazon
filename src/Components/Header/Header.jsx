@@ -1,20 +1,26 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { BsSearch } from "react-icons/bs";
 import { SlLocationPin } from "react-icons/sl";
 import { BiCart } from "react-icons/bi";
 import classes from "./Header.module.css";
-import LowerHeader from './LowerHeader';
-
+import LowerHeader from "./LowerHeader";
+import {Link} from "react-router-dom"
+import {DataContext} from '../DataProvider/DataProvider'
 function Header() {
-  return (
-    <>
+    const [{basket},dispatch]=useContext(DataContext);
+    const totalItem=basket?.reduce((amount,item)=>{
+        return item.amount + amount
+    },0)
+    
+    return (
+    <section className={classes.fixed}>
         <section>
             <div className={classes.header_container}>
                 <div className={classes.logo_container}>
  {/* logo */}
- <a href="/">
+ <Link to="/">
                     <img src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="amazon" />
-                </a>
+                </Link>
                 <div className={classes.delivery}>
                     {/* delivery */}
                 <span>
@@ -24,73 +30,70 @@ function Header() {
                 </span>
                 <div >
                     <p> Deliver to</p>
-                    <span>LasVegas</span>
+                    <span>Ethiopia</span>
                 </div>
                 </div>
                 
                 </div>
                 
-               
+                
                 <div className={classes.search}>
                 {/* search */}
                 <select name="" id="">
                     <option value="">All</option>
                 </select>
-                <input type="text" name="" id="" placeholder="Search Amazon" />
+                <input type="text" name="" id="" placeholder="search product" />
                 {/* icon */}
-                <BsSearch size={25} />
+                <BsSearch size={38} />
             </div>
             <div className={classes.order_container}>
                 {/* right side link */}
                 
-                    <a href="" className={classes.language}>
+                    <Link to="" className={classes.language}>
                     <img src="https://upload.wikimedia.org/wikipedia/en/thumb/a/a4/Flag_of_the_United_States.svg/1024px-Flag_of_the_United_States.svg.png" alt="" />
-
-                    
                     
                     <select name="" id="">
-                       <option value=""> EN</option> 
+                        <option value=""> EN</option> 
                     </select>
-                    </a>
+                    </Link>
                     {/* three components */}
-<a href="">
+<Link to="">
     
         <p>Sign In</p>
         <span>Account & Lists</span>
 
     
-</a>
+</Link>
 {/* orders */}
-<a href="">
+<Link to="/orders">
     
         <p>returns</p>
         <span>& Orders</span>
 
     
-</a>
+</Link>
 {/* cart */}
-<a to={"/cart"} className={classes.cart}>
+<Link to="/cart" className={classes.cart}>
     
         {/* icon */}
         <BiCart size={35} />
-        <span>0</span>
+        <span>{totalItem}</span>
 
     
-</a>
+</Link>
             </div>
             </div>
-          
+            
             
 
 
 
 
         </section>
-        <LowerHeader/>
-    </>
+        <LowerHeader />
+    </section>
     
-  )
+    )
 }
 
-export default Header
-
+export default Header
