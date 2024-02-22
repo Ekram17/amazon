@@ -26,9 +26,9 @@
     max-width: 350px;
     width: 100%;
   }
-  /* .payment__details {
+  .payment__details {
     font-size: 20px;
-  } */
+  }
   .payment__price {
     padding: 20px;
   }

@@ -6,8 +6,11 @@ import classes from "./Header.module.css";
 import LowerHeader from "./LowerHeader";
 import {Link} from "react-router-dom"
 import {DataContext} from '../DataProvider/DataProvider'
+import {auth} from "../../Utility/Firebase"
+
+
 function Header() {
-    const [{basket},dispatch]=useContext(DataContext);
+    const [{user,basket},dispatch]=useContext(DataContext);
     const totalItem=basket?.reduce((amount,item)=>{
         return item.amount + amount
     },0)
@@ -17,8 +20,8 @@ function Header() {
         <section>
             <div className={classes.header_container}>
                 <div className={classes.logo_container}>
- {/* logo */}
- <Link to="/">
+     {/* logo */}
+    <Link to="/">
                     <img src="https://pngimg.com/uploads/amazon/amazon_PNG11.png" alt="amazon" />
                 </Link>
                 <div className={classes.delivery}>
@@ -30,7 +33,7 @@ function Header() {
                 </span>
                 <div >
                     <p> Deliver to</p>
-                    <span>Ethiopia</span>
+                    <span>LasVegas</span>
                 </div>
                 </div>
                 
@@ -57,12 +60,21 @@ function Header() {
                     </select>
                     </Link>
                     {/* three components */}
-<Link to="">
-    
-        <p>Sign In</p>
-        <span>Account & Lists</span>
+<Link to= {!user &&"/auth"}>
+        <div>
+        { user ? (
+            <>
+                <p>Hello {user?.email?.split("@")[0]} </p>
+                <span onClick={() =>auth.signOut()}>Sign Out</span>
+            </>
+    ) : (
+        <>
+            <p>Sign In</p>
+            <span>Account & Lists</span>
+        </>
+    )}
+        </div>
 
-    
 </Link>
 {/* orders */}
 <Link to="/orders">
